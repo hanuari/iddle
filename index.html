@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/combates.css">
+    <link rel="stylesheet" href="./css/mapa.css">
+    <link rel="stylesheet" href="./css/estructuras.css">
+    <link rel="stylesheet" href="./paginas/ciudad/ciudad.css">
+    <link rel="stylesheet" href="./paginas/casa/crear-grupo/grupo.css">
+    <link rel="stylesheet" href="./paginas/zonas-farmeo/farmeo-estilo.css">
+    <title>IDLE GUILD x</title>
+</head>
+
+
+
+<body>
+
+    <nav>
+        <ul class="menu-interfaz">
+            <li><button type="button" class="btn-tab " data-target="inicio">Inicio</button></li>
+            <li><button type="button" class="btn-tab" data-target="mapa">Mapa</button></li>
+            <li><button type="button" class="btn-tab " data-target="casa">Casa</button></li>
+            <li><button type="button" class="btn-tab " data-target="grupo">Grupo</button></li>
+        </ul>
+
+    </nav>
+
+
+
+    <!-- INTERFAZ GRUPO -->
+    <div id="mostrar-grupo" class="ocultar">
+
+        <div>
+
+        </div>
+
+        <div id="vista-gestionar-grupo">
+            <h1><span id="vista-nombre-grupo">nombre Grupo</span></h1>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <!-- MAPA -->
+    <div id="mostrar-mapa" class="ocultar">
+        <div id="contenedor-mapa">
+            <div id="zonas-personajes"> </div>
+            <div id="zonas-enemigas"> </div>
+            <div id="zonas-ubicaciones"> </div>
+            <div id="confirmacion-movimiento" class="ocultar">
+                <div class="mensaje-informativo-mapa">
+                    <button data-id="detalle" class="btn-mover-personaje">Detalles </button>
+                    <button data-id="true" class="btn-mover-personaje">Aceptar </button>
+                    <button data-id="false" class="boton-rojo btn-mover-personaje">Denegar </button>
+                    <div>
+                        <p> Tiempo: <span id="tiempo-espera-llegada">20 min</span></p>
+
+                    </div>
+                </div>
+            </div>
+            <div id="mostrar-grupos-posibles" class="mostrar-grupos-mapa-posibles"></div>
+        </div>
+    </div>
+
+    <!-- ZONA DE FARMEO -->
+    <div id="mostrar-farmeo" class="ocultar">
+
+        <h3><span id="nombre-grupo-ubicacion">nombre GRUPO</span></h3>
+
+        <div id="mostrar-aliados-grupo"></div>
+
+        <!-- ZONA DE TRABAJO -->
+        <div class="trabajar-zona-interface">
+            <div id="interfaz-zona-trabajo"></div>
+            <div id="inventario-zona-informacion" class="inventario-total-zona">inventario zona
+            </div>
+            <div id="trabajar-zona-ahora-interface"></div>
+            <div id="trabajar-zona-seleccionado" class="ocultar"> </div>
+        </div>
+
+        <div>
+            <h1>Zonas</h1>
+            <div id="botones-farmear" class="class-inventario-farmear">
+            </div>
+            <div id="zonas-farmear"></div>
+        </div>
+
+        <div>
+            <div>
+                <h1>inventario Ubicacion</h1>
+                <div id="inventario-ubicacion-capacidad"></div>
+
+            </div>
+
+            <div>
+                <div id="inventario-ubicacion" class="class-inventario-ubicacion">
+                    <div class="inventario">
+
+                    </div>
+                </div>
+
+                <div id="crear-boton-trasferir">
+
+                </div>
+
+            </div>
+            <div id="intercambiar-ubicacion-recurso" class="ocultar">
+                <h1>Empezar el TRADEO</h1>
+
+                <div>
+                    <p id="informacion-para-tranferir-cosas">Trasnferir: <span id="texto-numero-intercambiar">1</span>
+                        de <span id="texto-nombre-intercambiar">madera</span></p>
+                </div>
+
+                <div id="botones-para-tradear">
+                    <button data-id="cantidad-transferir-1">1</button>
+                    <button data-id="cantidad-transferir-10">10</button>
+                    <button data-id="cantidad-transferir-100">100</button>
+                </div>
+                <div>
+
+                </div>
+
+                <button id="transferir-todo" class="boton-rojo">trasnferir</button>
+
+            </div>
+
+            <div>
+                <div>
+                    <h1>inventario Grupo</h1>
+                    <div id="mostrar-numeros-inventario-farmeo"></div>
+                    <div id="inventario-personal" class="clase-inventario-personal">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- CASA -->
+    <div id="mostrar-casa" class="ocultar">
+
+        <div id="contenedor-grupo"></div>
+
+        <div>
+            <button id="gestionar-grupo" data-location-id="">Crear Grupo</button>
+
+            <div id="gestionar-grupo-activado" class="ocultar">
+                <div id="selecionar-aliados"></div>
+
+                <div class="grupo-opciones">
+                    <h3>Camino usuario</h3>
+                    <label class="opcion-item" for="camino-carretera">
+                        <input id="camino-carretera" type="radio" name="camino" value="carretera" checked>
+                        <span>Solo por Carretera</span>
+                    </label>
+                    <label class="opcion-item" for="camino-rapido">
+                        <input id="camino-rapido" type="radio" name="camino" value="rapido">
+                        <span>Más Rápido</span>
+                    </label>
+                </div>
+
+                <div class="grupo-opciones">
+                    <h3>Estilo combate</h3>
+                    <label class="opcion-item" for="estilo-huida">
+                        <input id="estilo-huida" type="radio" name="estilo" value="huida" checked>
+                        <span>Huida</span>
+                    </label>
+                    <label class="opcion-item" for="estilo-agresivo">
+                        <input id="estilo-agresivo" type="radio" name="estilo" value="agresivo">
+                        <span>Agresivo</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="class-nombre-grupo" for="nombre-grupo">
+                        <input type="text" id="nombre-grupo">
+                        <span>Nombre Grupo</span>
+                    </label>
+                </div>
+
+
+                <div class="grupo-botones">
+                    <button type="button" id="btn-aceptar-grupo-nuevo">Aceptar</button>
+                    <button type="button" id="btn-cancelar-grupo-nuevo">Cancelar</button>
+                </div>
+            </div>
+
+            <div id="mostrar-zona-casa">
+            </div>
+            <div id="inventario-casa" class="clase-inventario-personal"></div>
+            <div id="inventario-personal-casa" class="clase-inventario-personal">
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- CIUDAD -->
+    <div id="mostrar-ciudad" class="ocultar">
+        <h1>Tienda</h1>
+        <div id="comerciar">
+            <div>
+                <p>Oro Ciudad <span id="oro-mostrar-ciudad-tienda" class="numero-objetos">0</span>€</p>
+                <p>Oro persona <span id="oro-mostrar-persona-tienda" class="numero-objetos">0</span>€</p>
+            </div>
+            <div id="contenedor-filas-comercio"></div>
+        </div>
+
+
+        <h1>inventario personaje</h1>
+        <div id="mostrar-numeros-inventario-ciudad"></div>
+
+        <div id="inventario-personal-ciudad" class="clase-inventario-personal"></div>
+    </div>
+
+
+
+
+
+    <!-- Combate -->
+    <div id="mostrar-combate" class="ocultar">
+        <div id="elegir-zona-combate">
+
+        </div>
+
+        <div id="zona-combate" class="clase-zona-combate">
+            <h1>Enemigos </h1>
+
+            <div id="zona-enemiga" class="zona-combate-enemigo">
+
+            </div>
+
+            <div class="zona-combate-aliado">
+                <h1>Aliados</h1>
+                <button id="empezar-combate">Empezar Combate</button>
+                <div id="mostrar-aliados-elegidos" class="personajes-mostrados">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div>
+            <button id="elegir-equipo-pelear">Elegir Mi TEAM</button>
+
+        </div>
+
+        <div id="mostar-informacion-posible" class="ocultar">
+
+            <div id="mostrar-aliados-posibles">
+
+
+            </div>
+
+            <div>
+                <button id="guardar-aliados-lucha">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="module" src="./main.js"></script>
+</body>
+
+</html>

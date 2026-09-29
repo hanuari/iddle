@@ -1,0 +1,165 @@
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #12141c;
+    margin: 0;
+    padding: 0;
+    color: #e2e8f0;
+}
+
+.clase-inventario-personal,
+.class-inventario-ubicacion,
+.class-inventario-farmear {
+    display: flex;
+    flex-direction: row;
+}
+
+.inventario-objetos,
+.recursos-inventario-farmeado-ubicacion,
+.recursos-farmear-ubicacion {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #2d3748;
+    background-color: #1e293b;
+    align-items: center;
+    padding: 15px;
+}
+
+.inventario-vacio {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #2d3748;
+    background-color: #2e2e2e;
+    align-items: center;
+    padding: 15px;
+    padding: 45px;
+}
+
+.inventario-objetos img,
+.recursos-inventario-farmeado-ubicacion img,
+.class-inventario-farmear img {
+    width: 60px;
+}
+
+
+.inventario-objetos p,
+.recursos-inventario-farmeado-ubicacion p,
+.class-inventario-farmear p {
+    margin: 4px;
+    color: #cbd5e1;
+}
+
+.recursos-farmear-ubicacion button {
+    background-color: #3b82f6;
+    border: none;
+    color: #ffffff;
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.barra-contenedor {
+    width: 100%;
+    max-width: 500px;
+    height: 25px;
+    background-color: #0f172a;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #334155;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+
+.barra-relleno {
+    height: 100%;
+    width: 0%;
+    background-color: #10b981;
+}
+
+
+.numero-objetos {
+    color: #fbbf24;
+    font-weight: 600
+}
+
+.ocultar {
+    display: none;
+}
+
+.crearBotonInterfaz {
+    border: 2px solid red;
+    cursor: pointer;
+
+}
+
+#intercambiar-ubicacion-recurso button {
+    width: 50px;
+    background-color: #fbbf24;
+
+}
+
+#intercambiar-ubicacion-recurso button.boton-rojo {
+    width: 175px;
+    background-color: #245dfb;
+    color: white;
+    border-radius: 6px;
+    border-color: rgb(162, 0, 255);
+}
+
+
+
+.menu-interfaz {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    /* Elimina los puntos de la lista */
+    margin: 0;
+    padding: 0;
+    gap: 10px;
+    /* Espacio uniforme entre los botones */
+    align-items: center;
+}
+
+.menu-interfaz li {
+    list-style: none;
+    /* Asegura que no haya puntos en ningún navegador */
+}
+
+/* Estilo base de los botones de navegación */
+.btn-tab {
+    background-color: #2c3e50;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Efecto al pasar el cursor */
+.btn-tab:hover {
+    background-color: #34495e;
+    transform: translateY(-2px);
+}
+
+/* Estado activo para indicar la pestaña elegida */
+.btn-tab.active {
+    background-color: #f1c40f;
+    /* Color dorado para combinar con el tema de oro */
+    color: #1a252f;
+    box-shadow: 0 2px 8px rgba(241, 196, 15, 0.4);
+}
+
+.lista-caras-ubicacion-boton,
+.lista-caras {
+    display: flex;
+    flex-direction: row;
+}
+
+.lista-caras-ubicacion-boton img,
+.lista-caras img {
+    width: 50px;
+
+}

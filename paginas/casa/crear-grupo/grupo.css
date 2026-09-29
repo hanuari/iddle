@@ -1,0 +1,9 @@
+.lista-caras {
+    display: flex;
+    flex-direction: row;
+}
+
+.lista-caras img {
+    width: 50px;
+
+}

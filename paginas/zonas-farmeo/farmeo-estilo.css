@@ -1,0 +1,241 @@
+/* 1. El contenedor padre define el área delimitada */
+.imagen-fondo-zona {
+    position: relative;
+    width: 250px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.imagen-fondo-zona img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.zonas-para-mostar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12px;
+    box-sizing: border-box;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    font-size: 18px;
+}
+
+.numero-objetos-zona {
+    font-size: 25px;
+    color: #fbff03;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.imagen-recurso-zona img {
+    width: 50px;
+
+}
+
+.detalles-zona {
+    background-color: red;
+
+}
+
+
+
+
+
+#zonas-farmear {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 4px;
+    /* Equivale a tu variable GAP */
+    width: 100%;
+}
+
+/* Modificación de la tarjeta */
+.tarjeta-zona {
+    position: relative;
+    /* Cambiado de absolute a relative */
+    width: 100%;
+    /* Toma el ancho asignado por la cuadrícula */
+    height: 140px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #0d0d0d;
+    display: block;
+}
+
+.bg-tarjeta {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* El botón actúa como contenedor de referencia */
+.tarjeta-zona {
+    position: relative;
+    width: 200px;
+    /* Ajusta a tu diseño */
+    height: 120px;
+    /* Ajusta a tu diseño */
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    /* Evita que el fondo se salga de las esquinas */
+    cursor: pointer;
+    padding: 0;
+}
+
+/* La imagen de fondo se expande y se coloca en la capa inferior */
+.bg-tarjeta {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Capa contenedor superpuesta encima de la imagen de fondo */
+.capa-contenido {
+    position: relative;
+    z-index: 2;
+    /* Al ser mayor que 1, se dibuja POR ENCIMA del fondo */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.3);
+    /* Opcional: oscurece el fondo para mejorar la visibilidad */
+}
+
+.titulo-tarjeta {
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000;
+}
+
+/* Contenedor horizontal para las imágenes/iconos superpuestos */
+.contenedor-recursos {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.icono-recurso {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.7));
+}
+
+.zona-interfaz-almacen,
+.recursos-farmeando-zona,
+.recursos-farmear-zona {
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #2d3748;
+    background-color: #1e293b;
+    align-items: center;
+    width: 150px;
+    margin: 5px;
+}
+
+.zona-interfaz-almacen-vacio {
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #2d3748;
+    background-color: #000000;
+    align-items: center;
+    padding: 15px;
+    width: 150px;
+    margin: 5px;
+}
+
+.zona-interfaz-almacen img,
+.recursos-farmeando-zona img,
+.recursos-farmear-zona img {
+    width: 60px;
+}
+
+.recursos-farmeando-zona button,
+.recursos-farmear-zona button {
+    background-color: #3b82f6;
+    border: none;
+    color: #ffffff;
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 20px;
+    cursor: pointer;
+
+}
+
+
+#trabajar-zona-seleccionado {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.boton-cancelar-zona button {
+    background-color: #f63b3b;
+    border: none;
+    color: #ffffff;
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 20px;
+    cursor: pointer;
+
+}
+
+
+.barra-relleno {
+    height: 100%;
+    width: 0%;
+    background-color: #10b981;
+}
+
+.barra-contenedor {
+    width: 100%;
+    max-width: 500px;
+    height: 25px;
+    background-color: #0f172a;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #334155;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+
+.inventario-total-zona {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.inventario-lleno-text {
+    color: red;
+}
+
+.inventario-actual-text {
+    color: #039aff;
+}

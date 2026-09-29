@@ -1,0 +1,128 @@
+* {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body,
+
+html {
+    margin: 0;
+    padding: 0;
+
+    background-color: #05051d;
+    font-family: sans-serif;
+}
+
+#mostrar-mapa {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    cursor: grab;
+    overflow: hidden;
+    position: relative;
+}
+
+#mostrar-mapa:active {
+    cursor: grabbing;
+}
+
+#contenedor-mapa {
+    position: absolute;
+    width: max-content;
+    height: 720px;
+    flex-shrink: 0;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+}
+
+#contenedor-mapa img {
+    display: block;
+    max-width: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+
+.tarjeta-mapa {
+    position: absolute;
+    width: 220px;
+    height: 140px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #0d0d0d;
+    display: block;
+}
+
+.personaje-mapa {
+    background-color: transparent;
+    z-index: 10;
+    width: 120px;
+    height: 80px;
+
+}
+
+.bg-tarjeta {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.titulo-tarjeta {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 14px;
+    padding: 6px 0;
+    text-align: center;
+    pointer-events: none;
+}
+
+.boton-rojo {
+    background-color: red;
+}
+
+.mensaje-informativo-mapa {
+    display: flex;
+    flex-direction: row;
+    background-color: #3f2b00;
+    position: absolute;
+    /* O 'relative' / 'fixed' según tu contenedor */
+    top: 20px;
+    /* Distancia desde arriba */
+    left: 20px;
+    /* Distancia desde la izquierda */
+    z-index: 9999;
+    /* Valor alto para forzar que esté por encima de todo */
+}
+
+.mostrar-grupos-mapa-posibles {
+    display: flex;
+    position: absolute;
+
+    top: 600px;
+    left: 0px;
+    z-index: 9999;
+}
+
+.mostrar-grupos-mapa-posibles img {
+    width: 50px;
+    height: 50px;
+}
+
+.lista-caras-mapa {
+    display: flex;
+    flex-direction: column;
+    background-color: #2c2c2c;
+    margin: 10px;
+    padding: 10px;
+}

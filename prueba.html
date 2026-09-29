@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo de Gestión de Tiempo</title>
+
+</head>
+
+<body>
+
+    <div class="recursos-farmear-ubicacion">
+        <img src="${objetoEncontrado.imagen}" alt="">
+        <p>recurso: ${objetoEncontrado.nombre}</p>
+        <p>Cantidad Generada: ${objetoEncontrado.cantidad_generada}</p>
+        <p>Segundos: ${objetoEncontrado.segundos}</p>
+        <p>KG: ${objetoEncontrado.kg}</p>
+        <p>Recursos disponibles: <span
+                id="inventario-farmear-${ubicacionActual.id_ubicacion}-${objetoEncontrado.id_recurso}"
+                class="numero-objetos">${recursosDisponibles.cantidad}</span></p>
+        <div class="barra-contenedor">
+            <div id="barra-${ubicacionActual.id_ubicacion}-${objetoEncontrado.id_recurso}" class="barra-relleno">
+            </div>
+        </div>
+
+        <div class="boton-farmear">
+            <button data-id="boton-farmear-${ubicacionActual.id_ubicacion}-${objetoEncontrado.id_recurso}"
+                class="boton-farmear">Farmear</button>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
