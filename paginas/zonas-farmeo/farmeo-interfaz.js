@@ -2,7 +2,6 @@ import { cerrarMenu } from "../../menu/menu-engranaje.js"
 import { datosJuego, obtenerGrupoActivo } from "../../objeto-juego-completo.js"
 import { crearZonasAleatoriaBioma } from "./farmeo-engranaje.js"
 
-
 export function iniciarInterfazFarmeoUbicacion(grupo) {
     const mostrarFarmeo = document.getElementById("mostrar-farmeo")
     const idUbicacion = grupo.ubicacionActual.id_ubicacion
@@ -23,15 +22,9 @@ export function iniciarInterfazFarmeoUbicacion(grupo) {
 
     mostrarAliadosGrupo(grupo)
 
-
-
     /*     const zonaActual = ubicacionActual.encontrarZonaCreadaAleatoriamente(ubicacionActual.grid.col, ubicacionActual.grid.fila);
         actualizarInventarioIconoFarmearZona(zonaActual) */
-
 }
-
-
-
 
 export function mostrarInformacionKGinventarioPersonal(contenedorHtml, grupo) {
 
@@ -41,7 +34,6 @@ export function mostrarInformacionKGinventarioPersonal(contenedorHtml, grupo) {
     contenedor.innerHTML = `
     <p>Cantidad actual <span id="capacidad-actual-personaje-${personajeActual.id_grupo}" class="numero-objetos"> 02 </span> kg / <span id="capacidad-maxima-personaje-${personajeActual.id_grupo}" class="numero-objetos"> 999 </span>kg </p>
     `
-
     inventarioPersonajeKgMax(personajeActual)
     inventarioPersonajeActualKG(personajeActual)
 }
@@ -68,9 +60,7 @@ export function mostrarDetallesZona(zona) {
 export function apagarmostrarDetallesZona(zona) {
     const contenedor = document.getElementById(`mostrar-detalles-zona-${zona}`)
     contenedor.classList.add("ocultar")
-
 }
-
 
 export function inventarioPersonalUbicacion(contendor, grupo) {
 
@@ -101,7 +91,6 @@ export function inventarioPersonalUbicacion(contendor, grupo) {
         `
         }
 
-
         if ("id_objeto" in item) {
             const itemObjeto = datosJuego.objetosPersonajes.get(item.id_objeto)
 
@@ -116,7 +105,6 @@ export function inventarioPersonalUbicacion(contendor, grupo) {
 
     inventarioPruebaJugador.innerHTML = htmlVacio
     inventarioVacio(inventariomaximo, inventarioPruebaJugador)
-
 }
 
 export function inventarioVacio(numeroInventarioMaximoPersonaje, contenedorHTML) {
@@ -131,12 +119,6 @@ export function inventarioVacio(numeroInventarioMaximoPersonaje, contenedorHTML)
     }
     contenedorHTML.innerHTML += htmlVacio
 }
-
-
-
-
-
-
 
 export function mostrarAliadosGrupo(grupo) {
     const contenedorHTML = document.getElementById("mostrar-aliados-grupo")
@@ -166,7 +148,6 @@ function mostrarNombreGrupoUbicacion(grupo) {
     const contenedorNombreGrupo = document.getElementById("nombre-grupo-ubicacion")
     contenedorNombreGrupo.innerText = `${grupo.nombre}`
 }
-
 
 export function mostrarZonasFarmear(idUbicacion) {
     const zonas = document.getElementById("zonas-farmear");
@@ -221,8 +202,6 @@ export function mostrarZonasFarmear(idUbicacion) {
     zonas.appendChild(fragment);
 }
 
-
-
 export function mostrarZonasTrabajar(idUbicacion, col, fila,) {
     const contenedorUbicacion = document.getElementById("trabajar-zona-seleccionado")
 
@@ -230,22 +209,17 @@ export function mostrarZonasTrabajar(idUbicacion, col, fila,) {
 
     let contenedorVacioObjetos = ""
 
-    const ubicacionActual = datosJuego.ubicaciones.get(idUbicacion)
-
-    const grupoActual = datosJuego.grupos.get(ubicacionActual.grupo_actual)
-
-    const zonaActual = ubicacionActual.encontrarZonaCreadaAleatoriamente(col, fila)
+    const ubicacionActual = datosJuego.ubicaciones.get(idUbicacion);
+    const zonaActual = ubicacionActual.encontrarZonaCreadaAleatoriamente(col, fila);
 
     for (let i = 0; i < zonaActual.recursos.length; i++) {
         const element = zonaActual.recursos[i];
         const objetoEncontrado = datosJuego.recursos.get(element.id_recurso)
 
-
         if (element.trabajoActivo === true) {
             continue;
         }
         contenedorVacioObjetos += `
-               
             <div  class="recursos-farmear-zona ">
             
                 <div class="boton-farmear-zona ">
@@ -267,14 +241,12 @@ export function mostrarZonasTrabajar(idUbicacion, col, fila,) {
            
              </div>
     `
-
     }
 
     contenedorUbicacion.innerHTML = contenedorVacioObjetos
     mostrarZonaTrabajo(zonaActual)
 
     actualizarInventarioIconoFarmearZona(zonaActual)
-
 }
 
 export function actualizarInventarioIconoFarmearZona(zonaActual) {
@@ -309,26 +281,21 @@ export function actualizarInventarioIconoFarmearZona(zonaActual) {
             </div>
         `;
     }
-
     contenedorHTML.innerHTML = html;
 }
 
-
 export function mostrarAhoraTRabajando(idUbicacion, zona, recursoEncontrado) {
-
-    const ubicacionActual = datosJuego.ubicaciones.get(idUbicacion)
-
-    const grupoActual = datosJuego.grupos.get(ubicacionActual.grupo_actual)
 
     const contenedorVacio = document.getElementById("trabajar-zona-ahora-interface")
 
     let contenedorVacioObjetos = ""
 
-
     for (let i = 0; i < zona.recursos.length; i++) {
         const element = zona.recursos[i];
         const objetoEncontrado = datosJuego.recursos.get(element.id_recurso)
 
+        const idPersonaje = Number(element.id_trabajador_activo)
+        const personajeActual = datosJuego.personajes.get(idPersonaje)
 
         if (element.trabajoActivo === false || element.trabajoActivo === null || element.trabajoActivo === undefined) {
             continue;
@@ -337,11 +304,11 @@ export function mostrarAhoraTRabajando(idUbicacion, zona, recursoEncontrado) {
                
             <div class="recursos-farmeando-zona">
                 <div class="boton-cancelar-zona">
-                     <button data-ubicacion="${idUbicacion}"
-                     data-recurso = "${objetoEncontrado.id_recurso}"
-                     data-col = "${zona.grid.col}"
-                    data-fila = "${zona.grid.fila}"
-                    class="boton-cantelar">Cancelar</button>
+                    <button data-ubicacion="${idUbicacion}"
+                        data-recurso = "${objetoEncontrado.id_recurso}"
+                        data-col = "${zona.grid.col}"
+                        data-fila = "${zona.grid.fila}"
+                        class="boton-cantelar">Cancelar</button>
                 </div>
          
                 <img src="${objetoEncontrado.imagen}" alt="">
@@ -350,19 +317,24 @@ export function mostrarAhoraTRabajando(idUbicacion, zona, recursoEncontrado) {
                     id="Recursos-trabajo-${element.id_ubicacion}"
                     class="numero-objetos">${element.cantidad}</span>
                 </p>
-           
-                <div class="barra-contenedor">
+                             
+                <div class="barra-contenedor"> 
+                                         
+                    <div id="barra-${element.id_ubicacion}" class="barra-relleno">
+
+                    </div>
+
+                </div>  
                 
-                <div id="barra-${element.id_ubicacion}" class="barra-relleno">
+                <div class="personaje-activo-trabajo">
+                  <img src="${personajeActual.avatar}"> 
                 </div>
+                
             </div>
 
-                <div id="personaje-trabajar-activo"> </div>
-           
-             </div>
+            <div id="personaje-trabajar-activo"> </div>
     `
     }
-
     contenedorVacio.innerHTML = contenedorVacioObjetos
 }
 
@@ -373,11 +345,9 @@ export function barraInterfazFarmear(idBarra, porcentaje) {
         const progresoFinal = Math.min(porcentaje, 100);
         elementoBarra.style.width = `${progresoFinal}%`;
     }
-
 }
 
 export function mostrarZonaTrabajo(zonaActual) {
-
     const contenedorHtml = document.getElementById("interfaz-zona-trabajo")
 
     contenedorHtml.innerHTML = `
@@ -394,7 +364,6 @@ export function mostrarZonaTrabajo(zonaActual) {
         
     </div>
     `
-
 }
 
 

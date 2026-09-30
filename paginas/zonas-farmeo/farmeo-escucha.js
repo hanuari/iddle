@@ -94,8 +94,6 @@ document.addEventListener("click", (evento) => {
 
 mostrarZonasTrabajar(1, 0, 0)
 
-const boton = document.querySelector('.boton-farmear');
-
 //EMPEZAR RECURSO
 document.addEventListener("click", (e) => {
     if (e.target.closest(".boton-farmear-zona")) {
