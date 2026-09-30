@@ -239,3 +239,8 @@
 .inventario-actual-text {
     color: #039aff;
 }
+
+.personaje-activo-trabajo img {
+    width: 50px;
+
+}

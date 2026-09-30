@@ -2,7 +2,6 @@ import { datosJuego, obtenerGrupoActivo } from "../../objeto-juego-completo.js";
 import { barraInterfazFarmear, mostrarAhoraTRabajando, mostrarZonasTrabajar } from "./farmeo-interfaz.js";
 import { ZonasAleatoriaFactory } from "../../funciones/datos-zonas-farmeo/zonas-creadas/clase-zona-creadas.js"
 
-
 export function seleccionarPersonajeUbicacion(idPersonaje) {
 
     const listaPersonajes = Array.from(datosJuego.personajes.values())
@@ -40,11 +39,11 @@ export function empezarFarmearZona(idUbicacion, idRecurso, zonaId) {
 
     const vinculacionTrabajorZona = personajeActivo.trabajoActivo
 
-
     if (vinculacionTrabajorZona === false) {
         personajeActivo.trabajo_actual = recursoEncontrado.id_ubicacion
         personajeActivo.trabajoActivo = true
 
+        //si esta trabajando es true
     } else {
         const idTrabajoAntiguo = personajeActivo.trabajo_actual
 
@@ -55,9 +54,10 @@ export function empezarFarmearZona(idUbicacion, idRecurso, zonaId) {
             rescuroAnterior.id_trabajador_activo = null;
             rescuroAnterior.trabajoActivo = false
         }
-
         personajeActivo.trabajo_actual = recursoEncontrado.id_ubicacion
         personajeActivo.trabajoActivo = true
+
+        cancelarBucle(rescuroAnterior.bucle?.id)
     }
 
     // actualizar para que no se muestre ahora.
@@ -66,82 +66,59 @@ export function empezarFarmearZona(idUbicacion, idRecurso, zonaId) {
     //mostrarLazonaAL otro lado.
     mostrarAhoraTRabajando(idUbicacion, zonaActual, recursoEncontrado)
 
-    //FALTA CREAR LA ACCION DE FARMEARAHORA
-    farmearAhora(idUbicacion, zonaActual, recursoEncontrado)
+    // ACCION DE FARMEARAHORA
+    farmearAhora(zonaActual, recursoEncontrado, grupoActual)
 }
 
+function farmearAhora(zonaActual, recursoEncontrado, grupoActual) {
+    const recursoBucle = recursoEncontrado.bucle;
+    const idContenedorBarra = recursoBucle.idContenedorBarra;
+    const objetoParaFarmear = datosJuego.recursos.get(recursoEncontrado.id_recurso);
+    const tiempoRecurso = objetoParaFarmear.segundos;
+    const idPersonajeActivo = grupoActual.personajeActivo;
 
-let idRecursoActual = 0
-let idBucle = null
+    recursoEncontrado.id_trabajador_activo = idPersonajeActivo;
 
-
-function farmearAhora(idUbicacion, zonaActual, recursoEncontrado) {
-
-    const idContenedorBarra = `barra-${recursoEncontrado.id_ubicacion}`
-    const objetoParaFarmear = datosJuego.recursos.get(recursoEncontrado.id_recurso)
-
-    // idBucle tengo que crearlo Con el Personaje, con un antes y despues.
-
-    idRecursoActual = objetoParaFarmear.id_recurso
-
-    if (idBucle) {
-        cancelAnimationFrame(idBucle)
-    }
-
-    let tiempoAcumulado = 0
-    const tiempoRecurso = objetoParaFarmear.segundos
-    let ultimoTiempo = performance.now()
-
-    let pesoActual = zonaActual.inventario_zona_actual
-
+    let tiempoAcumulado = recursoBucle?.tiempoAcumulado;
+    let ultimoTiempo = performance.now();
+    let idBucle = null;
 
     function loopInfinito() {
         const tiempoActual = performance.now()
         const deltaTime = (tiempoActual - ultimoTiempo) / 1000
-
+        const porcentaje = (tiempoAcumulado / tiempoRecurso) * 100;
         ultimoTiempo = tiempoActual
         tiempoAcumulado += deltaTime
 
-        if (tiempoAcumulado >= tiempoRecurso) {
-
-            pesoActual = zonaActual.incremetarCantidadGenerada(objetoParaFarmear, recursoEncontrado)
-
-
-            if (recursoEncontrado.cantidad <= 0) {
-                cancelAnimationFrame(idBucle)
-                barraInterfazFarmear(idContenedorBarra, 0)
-                return
-            }
-
-            if (pesoActual >= zonaActual.kg_maximo) {
-                cancelAnimationFrame(idBucle)
-                barraInterfazFarmear(idContenedorBarra, 0)
-                return
-            }
-
-
-            /*    actualizarNumeroRecursoInventarioUbicacion(objetoParaFarmear, numeroIncrementadoObjeto)
-   
-               const tieneCapacidadDeSeguir = actualizarNumeroRestarRecursoUbicacion(objetoParaFarmear)
-   
-               tiempoAcumulado = 0
-   
-               capacidadInventarioIncrementar()
-               if (tieneCapacidadDeSeguir === false) {
-                   detenerFarmeo(idUbicacion, idObjeto)
-                   return
-               } */
-
-            tiempoAcumulado %= tiempoRecurso
+        if (recursoEncontrado.cantidad <= 0) {
+            cancelAnimationFrame(idBucle);
+            barraInterfazFarmear(idContenedorBarra, 0);
+            return;
         }
-        const porcentaje = (tiempoAcumulado / tiempoRecurso) * 100;
+
+        if (tiempoAcumulado >= tiempoRecurso) {
+            zonaActual.incremetarCantidadGenerada(objetoParaFarmear, recursoEncontrado);
+            tiempoAcumulado %= tiempoRecurso;
+            recursoEncontrado.tiempoAcumulado = tiempoAcumulado;
+        }
+
         barraInterfazFarmear(idContenedorBarra, porcentaje)
 
-        idBucle = requestAnimationFrame(loopInfinito)
+        idBucle = requestAnimationFrame(loopInfinito);
+
+        recursoEncontrado.bucle.id = idBucle;
+
+        recursoEncontrado.bucle.tiempoAcumulado = tiempoAcumulado;
+
     }
-    idBucle = requestAnimationFrame(loopInfinito)
+    idBucle = requestAnimationFrame(loopInfinito);
 }
 
+function cancelarBucle(idBucle) {
+    if (idBucle) {
+        cancelAnimationFrame(idBucle)
+    }
+}
 
 export function cancelarFarmeoAhora(idUbicacion, idRecurso, zonaId) {
 
@@ -152,9 +129,7 @@ export function cancelarFarmeoAhora(idUbicacion, idRecurso, zonaId) {
 
     const personajeActivoID = grupoActual.personajeActivo
     const personajeActivo = datosJuego.personajes.get(personajeActivoID)
-
     const zonaActual = ubicacionACTUAL.encontrarZonaCreadaAleatoriamente(zonaId.col, zonaId.fila)
-
     const recursoEncontrado = zonaActual?.recursos?.find(
         (recurso) => Number(recurso.id_recurso) === Number(idRecurso)
     );
@@ -174,10 +149,11 @@ export function cancelarFarmeoAhora(idUbicacion, idRecurso, zonaId) {
 
     //mostrarLazonaAL otro lado.
     mostrarAhoraTRabajando(idUbicacion, zonaActual, recursoEncontrado)
+
+    cancelarBucle(recursoEncontrado.bucle?.id)
 }
 
 export function crearZonasAleatoriaBioma(ubicacionActual) {
-
     const tipoUbicacion = ubicacionActual.tipo
     const tipo = ubicacionActual.provincia
     const tipoEncontrado = datosJuego.zonasGenerales.get(tipo)
@@ -192,9 +168,11 @@ export function crearZonasAleatoriaBioma(ubicacionActual) {
     const COLS_MAX = 4;
 
     for (let i = 0; i < parametrosUbicacion.ubicaciones; i++) {
+
         const x = i % COLS_MAX;
         const y = Math.floor(i / COLS_MAX);
-        const recursosInyectar = probabilidad(parametrosUbicacion, terrenos, x, y, ubicacionActual.id_ubicacion)
+
+        const recursosInyectar = probabilidad(parametrosUbicacion, terrenos, x, y, ubicacionActual.id_ubicacion);
 
         const key = `${ubicacionActual.id_ubicacion}-${x}-${y}`;
 
@@ -213,7 +191,6 @@ export function crearZonasAleatoriaBioma(ubicacionActual) {
             tipo_ubicacion: recursosInyectar.nombre,
             trabajoActivo: false,
         }
-
         crearZonas.push(zonaRaw);
     }
 
@@ -227,7 +204,6 @@ export function crearZonasAleatoriaBioma(ubicacionActual) {
 }
 
 function probabilidad(parametros, terrenos, x, y, idUbicacion) {
-
     const zonasTrabajar = parametros.zonas
     const recursosGlobales = parametros.recursosGlobalesMaximo
     const recursosMinimo = parametros.recursosMinimo
@@ -239,7 +215,6 @@ function probabilidad(parametros, terrenos, x, y, idUbicacion) {
 
     let recursosGlobalesAtope = 0
     let nombreGanador = ""
-    let intentosSeguridad = 0;
 
     while (recursosGlobalesAtope < recursosGlobales) {
         nombreGanador = sacarNombre(zonasTrabajar)
@@ -267,14 +242,18 @@ function probabilidad(parametros, terrenos, x, y, idUbicacion) {
                 clase_activo: "activo",
                 clase_ocultar: "ocultar",
                 id_recurso: idRecurso,
-                id_trabajador_activo: null,
                 id_ubicacion: idUbicacionConZona,
                 tipo: cordenadas,
                 tipo_ubicacion: nombreGanador,
-
+                bucle: {
+                    id: null,
+                    porcentaje: 0,
+                    tiempoAcumulado: 1,
+                    idContenedorBarra: `barra-${idUbicacionConZona}`,
+                    id_trabajador_activo: null,
+                }
             });
         }
-
         recursosGlobalesAtope += cantidadMaterialesAleatorio;
     }
 
@@ -308,9 +287,7 @@ function sacarIDAleatorioRecurso(nombreGanador, terrenos) {
     const indiceAleatorio = Math.floor(Math.random() * arrayID.length);
     const idGanador = arrayID[indiceAleatorio];
     return idGanador
-
 }
-
 
 function sacarNombre(zonasTrabajar) {
     let nombreTipo = ""
@@ -331,7 +308,6 @@ function sacarNombre(zonasTrabajar) {
             return nombreTipo
         }
     }
-
     return nombreTipo
 }
 
